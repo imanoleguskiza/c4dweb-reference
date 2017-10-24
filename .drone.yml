@@ -65,7 +65,7 @@ pipeline:
     automerge: false
     when:
       event: push
-      branch: [test, test/*]
+      branch: [test, test_*]
 
   # End testing
 
