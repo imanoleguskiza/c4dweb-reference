@@ -65,7 +65,7 @@ pipeline:
     automerge: false
     when:
       event: push
-      branch: feature/php7_code
+      branch: [test, test/*]
 
   # End testing
 
