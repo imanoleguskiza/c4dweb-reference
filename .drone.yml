@@ -78,7 +78,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
-      branch: [ test, test_*]
+      branch: [ test]
     volumes:
       - /backups:/backups
 
