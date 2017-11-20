@@ -1627,7 +1627,7 @@ function form_set_error($name = NULL, $message = '', $limit_validation_errors = 
     $sections = $limit_validation_errors;
   }
 
-  if (isset($name) && !isset($form[$name])) {
+  if (isset($name)) {
     $record = TRUE;
     if (isset($sections)) {
       // #limit_validation_errors is an array of "sections" within which user
@@ -1653,7 +1653,7 @@ function form_set_error($name = NULL, $message = '', $limit_validation_errors = 
       }
     }
     if ($record) {
-      $form[$name] = $message;
+      $form[$name][] = $message;
       if ($message) {
         drupal_set_message($message, 'error');
       }
@@ -2095,7 +2095,7 @@ function _form_builder_handle_input_element($form_id, &$element, &$form_state) {
       if (!$input_exists && !$form_state['rebuild'] && !$form_state['programmed']) {
         // Add the necessary parent keys to $form_state['input'] and sets the
         // element's input value to NULL.
-        drupal_array_set_nested_value($form_state['input'], $element['#parents'], NULL);
+        drupal_array_set_nested_value($form_state['input'], $element['#parents'], NULL, TRUE);
         $input_exists = TRUE;
       }
       // If we have input for the current element, assign it to the #value
