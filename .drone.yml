@@ -65,7 +65,7 @@ pipeline:
     automerge: false
     when:
       event: push
-      branch: [test, test/*]
+      branch: [test, test/*, feature*]
 
   # End testing
 
@@ -101,6 +101,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
+      branch: [test, test/*, feature*]
 
   site-upgrade:
     image: fpfis/php71-dev:latest
@@ -113,6 +114,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
+      branch: [test, test/*, feature*]
 
 
   slack-notify-deploy:
