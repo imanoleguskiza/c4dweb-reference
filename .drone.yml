@@ -78,7 +78,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
-      branch: [ test]
+      branch: [ test, feature*]
     volumes:
       - /backups:/backups
 
@@ -102,6 +102,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
+      branch: [test, test_*, feature*]
 
   site-upgrade:
     image: fpfis/php71-dev:latest
@@ -114,6 +115,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
+      branch: [test, test_*, feature*]
 
 
   slack-notify-deploy:
