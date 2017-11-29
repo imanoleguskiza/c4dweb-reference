@@ -65,7 +65,7 @@ pipeline:
     automerge: false
     when:
       event: push
-      branch: [test, test/*, feature*]
+      branch: [test, test/*, feature/*]
 
   # End testing
 
@@ -101,7 +101,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
-      branch: [test, test/*, feature*]
+      branch: [test, test/*, feature/*]
 
   site-upgrade:
     image: fpfis/php71-dev:latest
@@ -114,7 +114,7 @@ pipeline:
     when:
       event: deployment
       environment: [ test ]
-      branch: [test, test/*, feature*]
+      branch: [test, test/*, feature/*]
 
 
   slack-notify-deploy:
@@ -125,7 +125,7 @@ pipeline:
     icon_url: https://avatars0.githubusercontent.com/u/23079543?v=3&s=400
     when:
       event: deployment
-      environment: [ acceptance, production ]
+      environment: [ acceptance, production,test ]
       status: [ success, failure ]
     template: >
       {{#success build.status}}
