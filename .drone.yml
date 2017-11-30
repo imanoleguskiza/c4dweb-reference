@@ -70,16 +70,7 @@ pipeline:
   # End testing
 
   # Begin deployment
-  backup-deployed-environment:
-    image: fpfis/php71-dev
-    commands:
-      - drush -r website sql-dump > /backups/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}-before-${DRONE_COMMIT_SHA}.sql
-      - gzip /backups/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}-before-${DRONE_COMMIT_SHA}.sql
-    when:
-      event: deployment
-      environment: [ test ]
-    volumes:
-      - /backups:/backups
+ 
 
 # Push to deploy server and sync platform/sites/default folder from live environment
   deploy-test:
@@ -103,6 +94,17 @@ pipeline:
       environment: [ test ]
       branch: [test, test/*, feature/*]
 
+ backup-deployed-environment:
+    image: fpfis/php71-dev
+    commands:
+      - drush -r website sql-dump > /backups/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}-before-${DRONE_COMMIT_SHA}.sql
+      - gzip /backups/${DRONE_REPO_NAME}-${DRONE_DEPLOY_TO}-before-${DRONE_COMMIT_SHA}.sql
+    when:
+      event: deployment
+      environment: [ test ]
+    volumes:
+      - /backups:/backups
+      
   site-upgrade:
     image: fpfis/php71-dev:latest
     commands:
